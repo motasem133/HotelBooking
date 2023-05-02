@@ -1,0 +1,13 @@
+<nav>
+  <div class="container " style="height:80px;">
+    <div class="contect">
+      <h2 class="logo ">Market</h2>
+      <ul *ngIf="currentUser" >
+  <li routerLink="/products"  >Products</li>
+<li routerLink="/cart">Cart</li>
+<li routerLink="/auth/login" (click)="logout()">Logout</li>
+</ul>
+</div>
+    </div>
+
+</nav>

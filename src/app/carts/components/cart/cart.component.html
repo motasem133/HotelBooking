@@ -1,0 +1,56 @@
+
+
+<!-- ** USER ** -->
+<div class="cartBox">
+
+
+  <h1 style="color:#65795e;">Shopping Cart</h1>
+  <div class="headCart">
+    <p class="lead">Yoy have  <label style="color:#3a9513;">{{cartProducts.length}}</label> item in your cart</p>
+<span class=" card-header" style="color:#a6afa1; background-color: #e6e9e3;" (click)="clearCart()"><i class="bi bi-clipboard2-minus">  Clear Shopping Cart</i></span>
+  </div><br>
+  <table class="table table-striped">
+    <thead>
+      <tr class="text-center">
+
+        <th colspan="2" >Name</th>
+
+        <th >price</th>
+        <th style="width: 25%;">Quantity</th>
+        <th>Totale</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let item of cartProducts; let index =index ">
+        <td><img src="{{item.item.image}}" alt=""></td>
+        <td>{{item.item.title}}</td>
+        <td>{{item.item.price}} AED</td>
+        <td>
+          <div class="quantity">
+            <button class="btn " style="color: #7C9473;background-color:#CDD0CB;" (click)="plusAmount(index)">+</button>
+            <input class="form-control text-center" type="number" (change)="detectChange()" ngModel="{{item.quantity}}" min="1">
+            <button class="btn " style="color: #7C9473;background-color:#CDD0CB;" (click)="minsAmount(index)">-</button>
+          </div>
+        </td>
+        <td> {{item.item.price * item.quantity}} AED</td>
+        <td>
+          <button class="btn " style="color:white; background-color:#7C9473;"  (click)="deleteitem(index)"><i class="bi bi-trash3"> Delete </i></button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>Total : {{total}} AED</th>
+        <th><button class="btn " style="color:white; background-color:#acb6a7;" (click)="addCart()"  *ngIf="!ordered"><i class="bi bi-upload">  Order Now</i></button></th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<div class="alert alert-success" role="alert"  *ngIf="ordered"><strong>Well Done!</strong> Your Order is Successfully send</div>
+

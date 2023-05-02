@@ -1,0 +1,108 @@
+<!-- ** ADMIN** -->
+<div *ngIf="!loading">
+
+  <button class="btn mt-5" style="margin-bottom: 20px; color:white; background-color: #7e926f;"
+    data-bs-toggle="modal" data-bs-target="#add-product" (click)="add()"><i class="bi bi-plus-lg">  Add Product</i></button>
+
+  <table class="table table-striped table-hover">
+
+    <thead>
+      <tr>
+
+      </tr>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let Product of products; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>
+          <img src="{{Product.image}}" class="me-2" style="width: 80px " />
+        </td>
+        <td>{{ Product.category }}</td>
+        <td>{{ Product.price | currency}} AED</td>
+        <td>
+          <button class="btn mt-4" style="color: white;  background-color: #b1bbac;" (click)="update(Product)"
+            data-bs-toggle="modal" data-bs-target="#add-product">Update</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+<div class="modal fade" id="add-product" tabindex="-1" aria-labelledby="exampleModelLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 900px!important;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <form [formGroup]="form">
+          <div class="row">
+            <div class="col-md-4 col-sm-12">
+
+              <label>Title</label>
+              <input type="text" class="form-control" formControlName="title" placeholder="title">
+              <span *ngIf="form.get('title')?.invalid && form.get('title')?.touched" class="help-block"
+                style="color: red ;">Please enter a valid Title</span>
+            </div>
+
+            <div class="col-md-4 col-sm-12">
+              <label>Price</label>
+              <input type="number" class="form-control" formControlName="price" placeholder="price">
+              <span *ngIf="form.get('price')?.invalid && form.get('price')?.touched" class="help-block"
+                style="color: red ;">Please enter a valid Price</span>
+            </div>
+
+
+            <div class="col-md-4 col-sm-12">
+
+              <app-select [data]="categories" [choose]="form.value.category" [title]="'Categories'"
+                (selectedValue)="getSelectedCategory($event)"></app-select>
+            </div>
+
+
+            <div class="col-md-4 col-sm-12">
+              <label for="image">Image</label>
+              <input type="file" class="form-control" (change)="getImagePath($event)">
+              <br>
+              <img src="{{base64}}" style="width: 200px; height: 200px;" alt="">
+            </div>
+
+
+            <div class="col-md-4 col-sm-12">
+              <label for="image">Description</label>
+              <textarea class="form-control" formControlName="description" placeholder="Type here ... "></textarea>
+              <span *ngIf="form.get('description')?.invalid && form.get('description')?.touched" class="help-block"
+                style="color: red ;">Please enter a valid Description</span>
+            </div>
+
+          </div>
+
+          <div class="d-flex justify-content-end mt-3">
+            <button class="btn " style="color: white;  background-color: #7C9473;" [disabled]="!form.valid"
+              (click)="addProduct()">Add Product</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="text-center w-100 mt-10" *ngIf="loading">
+  <app-spinner></app-spinner>
+</div>

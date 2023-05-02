@@ -1,0 +1,33 @@
+
+.cartBox {
+  border: 1px solid #DDD;
+  border-radius: 5px;
+  padding: 0 20px;
+  margin: 50px 0;
+}
+
+.quantity {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input.table {
+  margin: 0 20px;
+  text-align: center;
+}
+
+tbody {
+  border-top: 1px solid linear-gradient(to right, rgba(215, 3, 88, 0.663), #2a06cbad);
+  border-bottom: 1px solid linear-gradient(to right, rgba(215, 3, 88, 0.663), #2a06cbad);
+}
+
+td.tbody {
+  border-bottom: 0;
+  text-align: center;
+  vertical-align: middle;
+}
+
+img.tbody {
+  width: 80px;
+  height: 80px;
+}

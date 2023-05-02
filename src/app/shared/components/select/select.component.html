@@ -1,0 +1,6 @@
+    <label class="my-1 text-center"> {{title}} :</label>
+<select class="form-control"  (change)="detectChanges($event)">
+  <option value="all" class="text-center"  selected>--Select--</option>
+  <option value="{{option}}" [selected]="option==choose" class="text-center"  *ngFor="let option of data">{{option}}</option>
+
+</select>

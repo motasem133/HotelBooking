@@ -1,0 +1,113 @@
+<!-- ** ADMIN **  -->
+<div class="cartBox" *ngIf="!loading">
+  <form [formGroup]="form">
+
+    <div class="row">
+      <div class="col-md-3">
+        <label><strong>Start Date</strong></label>
+        <input type="date" formControlName="start" class="form-control">
+      </div>
+      <div class="col-md-3">
+        <label><strong>End Date</strong></label>
+        <input type="date" formControlName="end" class="form-control">
+      </div>
+      <div class="col-md-2 d-flex align-item-end">
+
+        <button class="btn form-control mt-4 " style="color:white;background-color:#7e926f ;"
+          (click)="applyfilter()">Apply</button>
+
+      </div>
+    </div>
+    <br>
+  </form>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th colspan="2">Date</th>
+        <th colspan="2">Quantity</th>
+
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <td></td>
+            <td></td>
+
+      <tr *ngFor="let item of carts;let index =index">
+        <td ></td>
+        <td >{{item.date | date:"longDate" }}</td>
+        <td>
+          {{item.products.length}}
+        </td>
+  <td></td>
+        <td>
+          <button class="btn " style="background-color:#7C9473 ;color: white;" (click)="deleteCart(item.id)">
+            <i class="bi bi-trash3"> Delete</i>
+          </button>
+          <button class="btn " style="background-color:#C7E9B0 ;color: white;" data-bs-toggle="modal"
+            data-bs-target="#viewCart" (click)="view(index)"><i class="bi bi-sort-up-alt"> View</i></button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+</div>
+
+<div class="modal fade" id="viewCart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 900px!important;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="color:#7C9473;" id="exampleModalLabel"><strong>Cart Details</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="cartBox">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+
+                <th scope="col" colspan="2">#</th>
+                <th scope="col">Price</th>
+                <th style="width: 25%;">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of products; let i=index">
+                <td><img style="width: 50px;" src="{{item.item.image}}" alt=""></td>
+                <td></td>
+                <td>{{item.item.price}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.item.price * item.quantity}} AED</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Total : {{total | currency}}</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="text-center w-100 mt-10" *ngIf="loading">
+  <app-spinner></app-spinner>
+</div>
